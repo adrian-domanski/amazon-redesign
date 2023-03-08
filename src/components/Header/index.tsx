@@ -1,15 +1,21 @@
 import './styles.css';
 import { BiSearch } from 'react-icons/bi';
 import { MdShoppingBasket } from 'react-icons/md';
+import { Link } from 'react-router-dom';
+import { useGlobalContext } from '../../context/GlobalContext';
 
 function Header() {
+  const [{ basket }] = useGlobalContext();
+
   return (
     <div className='header'>
-      <img
-        src='http://pngimg.com/uploads/amazon/amazon_PNG11.png'
-        alt='Amazon'
-        className='header__logo'
-      />
+      <Link to='/'>
+        <img
+          src='http://pngimg.com/uploads/amazon/amazon_PNG11.png'
+          alt='Amazon'
+          className='header__logo'
+        />
+      </Link>
 
       <div className='header__search'>
         <input type='text' className='header__searchInput' />
@@ -31,10 +37,14 @@ function Header() {
         </div>
       </div>
 
-      <div className='header__optionBasket'>
-        <MdShoppingBasket />
-        <span className='header__optionLineTwo header__basketCount'>0</span>
-      </div>
+      <Link to='/checkout'>
+        <div className='header__optionBasket'>
+          <MdShoppingBasket />
+          <span className='header__optionLineTwo header__basketCount'>
+            {basket?.length}
+          </span>
+        </div>
+      </Link>
     </div>
   );
 }

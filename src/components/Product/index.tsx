@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles.scss';
 import { AiFillStar } from 'react-icons/ai';
+import { useGlobalContext } from '../../context/GlobalContext';
 
 interface IProps {
   id: string;
@@ -11,20 +12,19 @@ interface IProps {
 }
 
 function Product({ id, title, image, price, rating }: IProps) {
-  // const [{ basket }, dispatch] = useStateValue();
+  const [{ basket }, setGlobalContext] = useGlobalContext();
 
   const addToBasket = () => {
-    // dispatch the item into the data layer
-    // dispatch({
-    //   type: 'ADD_TO_BASKET',
-    //   item: {
-    //     id: id,
-    //     title: title,
-    //     image: image,
-    //     price: price,
-    //     rating: rating,
-    //   },
-    // });
+    setGlobalContext({
+      type: 'ADD_TO_BASKET',
+      payload: {
+        id,
+        title,
+        image,
+        price,
+        rating,
+      },
+    });
   };
 
   return (
