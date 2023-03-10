@@ -19,7 +19,7 @@ function CheckoutProduct({
   rating,
   hideButton,
 }: IProps) {
-  const [{ basket }, dispatch] = useGlobalContext();
+  const [_, dispatch] = useGlobalContext();
 
   const removeFromBasket = () => {
     // remove the item from the basket
