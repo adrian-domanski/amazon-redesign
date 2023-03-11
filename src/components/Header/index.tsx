@@ -1,11 +1,20 @@
-import './styles.css';
+import './styles.scss';
 import { BiSearch } from 'react-icons/bi';
 import { MdShoppingBasket } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { useGlobalContext } from '../../context/GlobalContext';
+import ConditionalLink from '../ConditionalLink';
+import { auth } from '../../utils/firebase';
+import { signOut } from 'firebase/auth';
 
 function Header() {
-  const [{ basket }] = useGlobalContext();
+  const [{ basket, user }] = useGlobalContext();
+
+  const handleAuth = () => {
+    if (user) {
+      signOut(auth);
+    }
+  };
 
   return (
     <div className='header'>
@@ -23,12 +32,18 @@ function Header() {
       </div>
 
       <div className='header__nav'>
-        <Link to='/login'>
-          <div className='header__option'>
-            <span className='header__optionLineOne'>Hello Guest</span>
-            <span className='header__optionLineTwo'>Sign In</span>
-          </div>
-        </Link>
+        <div className='header__option' onClick={handleAuth}>
+          <ConditionalLink to='/login' condition={!user}>
+            <span className='header__optionLineOne'>
+              Hello {user?.email || 'Guest'}{' '}
+            </span>
+            {user ? (
+              <span className='header__optionLineTwo'>Sign Out</span>
+            ) : (
+              <span className='header__optionLineTwo'>Sign In</span>
+            )}
+          </ConditionalLink>
+        </div>
         <div className='header__option'>
           <span className='header__optionLineOne'>Returns</span>
           <span className='header__optionLineOne'>& Orders</span>

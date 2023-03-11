@@ -4,7 +4,7 @@ import './styles.scss';
 import Subtotal from './Subtotal';
 
 function Checkout() {
-  const [{ basket }, dispatch] = useGlobalContext();
+  const [{ basket, user }, dispatch] = useGlobalContext();
   return (
     <div className='checkout'>
       <div className='checkout__left'>
@@ -15,6 +15,7 @@ function Checkout() {
         />
 
         <div>
+          <h3>Hello, {user?.email}</h3>
           <h2 className='checkout__title'>Your Shopping Basket</h2>
           {basket.map((item) => (
             <CheckoutProduct

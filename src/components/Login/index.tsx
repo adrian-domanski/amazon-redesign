@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import './styles.scss';
 import { Link, useNavigate } from 'react-router-dom';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
+import { auth } from '../../utils/firebase';
 // import { auth } from "../../utils/firebase";
 
 function Login() {
@@ -11,26 +16,26 @@ function Login() {
   const signIn = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    // auth
-    //     .signInWithEmailAndPassword(email, password)
-    //     .then(auth => {
-    // navigate('/');
-    //     })
-    //     .catch(error => alert(error.message))
+    signInWithEmailAndPassword(auth, email, password)
+      .then((auth) => {
+        if (auth) {
+          navigate('/');
+        }
+      })
+      .catch((error) => alert(error.message));
   };
 
   const register = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    // auth
-    //     .createUserWithEmailAndPassword(email, password)
-    //     .then((auth) => {
-    //         // it successfully created a new user with email and password
-    //         if (auth) {
-    //             history.push('/')
-    //         }
-    //     })
-    //     .catch(error => alert(error.message))
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((auth) => {
+        // it successfully created a new user with email and password
+        if (auth) {
+          navigate('/');
+        }
+      })
+      .catch((error) => alert(error.message));
   };
 
   return (
