@@ -7,6 +7,14 @@ import Login from './components/Login';
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './utils/firebase';
+import Payment from './components/Checkout/Payment';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import Orders from './components/Checkout/Orders';
+
+const promise = loadStripe(
+  'pk_test_51MkSMYAqVzAZlI7C8q68xIVBQE4OxSfp4hAvhBKxjSgQMHqJzRHlzaDWNv5xlPqcA5a9CBoALLE5Pa8z5LlXHMPw00UgjI45Qe'
+);
 
 function App() {
   const [_, dispatch] = useGlobalContext();
@@ -30,11 +38,31 @@ function App() {
         <Routes>
           <Route path='/login' element={<Login />} />
           <Route
+            path='/orders'
+            element={
+              <>
+                <Header />
+                <Orders />
+              </>
+            }
+          />
+          <Route
             path='/checkout'
             element={
               <>
                 <Header />
                 <Checkout />
+              </>
+            }
+          />
+          <Route
+            path='/payment'
+            element={
+              <>
+                <Header />
+                <Elements stripe={promise}>
+                  <Payment />
+                </Elements>
               </>
             }
           />

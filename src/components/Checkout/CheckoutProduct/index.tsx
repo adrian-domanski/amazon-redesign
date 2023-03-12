@@ -43,7 +43,7 @@ function CheckoutProduct({
           {Array(rating)
             .fill(rating)
             .map((_, i) => (
-              <p>
+              <p key={i}>
                 <AiFillStar />
               </p>
             ))}

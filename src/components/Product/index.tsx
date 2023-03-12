@@ -39,7 +39,7 @@ function Product({ id, title, image, price, rating }: IProps) {
           {Array(rating)
             .fill(rating)
             .map((_, i) => (
-              <p>
+              <p key={i}>
                 <AiFillStar className='product__star' />
               </p>
             ))}
