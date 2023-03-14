@@ -28,12 +28,34 @@
   margin-bottom: 15px;
 }
 
+.product__toastIcon {
+  color: #1a8754;
+}
+
+.product__btnsAction {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.product__btnsAction > button {
+  margin: 0 5px;
+}
+
+.product__btnsAction > button,
 .product > button {
   background: #f0c14b;
   border: 1px solid;
   margin-top: 10px;
   border-color: #a88734 #9c7e31 #846a29;
+  cursor: pointer;
+  padding: 6px 8px;
   color: #111;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background: #e3b745;
+  }
 }
 
 .product__price {

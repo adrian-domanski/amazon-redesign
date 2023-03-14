@@ -6,7 +6,7 @@ import { getBasketTotal } from '../../../context/reducers/globalReducer';
 
 function Subtotal() {
   const navigate = useNavigate();
-  const [{ basket }, dispatch] = useGlobalContext();
+  const [{ basket }] = useGlobalContext();
 
   return (
     <div className='subtotal'>
@@ -17,7 +17,13 @@ function Subtotal() {
               Subtotal ({basket?.length} items): <strong>{value}</strong>
             </p>
             <small className='subtotal__gift'>
-              <input type='checkbox' /> This order contains a gift
+              <input
+                type='checkbox'
+                onChange={() =>
+                  alert("Don't think that this is doing something, hah!")
+                }
+              />{' '}
+              This order contains a gift
             </small>
           </>
         )}
@@ -28,7 +34,7 @@ function Subtotal() {
         prefix={'$'}
       />
 
-      <button onClick={(e) => navigate('/payment')}>Proceed to Checkout</button>
+      <button onClick={() => navigate('/payment')}>Proceed to Checkout</button>
     </div>
   );
 }

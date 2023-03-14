@@ -2,6 +2,12 @@
   display: flex;
   margin-top: 20px;
   margin-bottom: 20px;
+  border-bottom: 1px solid rgb(239, 239, 239);
+  padding-bottom: 2rem;
+
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .checkoutProduct__info {
@@ -15,6 +21,12 @@
   border-color: #a88734 #9c7e31 #846a29;
   color: #111;
   padding: 7px;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    background: #e3b745;
+  }
 }
 
 .checkoutProduct__image {

@@ -1,11 +1,16 @@
 .header {
   height: 60px;
-  display: flex;
-  align-items: center;
   background-color: #131921;
   position: sticky;
   top: 0;
   z-index: 100;
+}
+
+.header__content {
+  align-items: center;
+  display: flex;
+  max-width: 1510px;
+  margin: 0 auto;
 }
 
 .header__logo {

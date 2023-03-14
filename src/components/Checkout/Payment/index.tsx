@@ -1,25 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './styles.scss';
-// import CheckoutProduct from "./CheckoutProduct";
 import { Link, useNavigate } from 'react-router-dom';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { StripeCardElementChangeEvent } from '@stripe/stripe-js';
 import CurrencyFormat from 'react-currency-format';
 import { useGlobalContext } from '../../../context/GlobalContext';
-
 import { getBasketTotal } from '../../../context/reducers/globalReducer';
 import CheckoutProduct from '../CheckoutProduct';
 import { db } from '../../../utils/firebase';
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  setDoc,
-  doc,
-  updateDoc,
-  getDoc,
-  setLogLevel,
-} from 'firebase/firestore';
+import { collection, setDoc, doc } from 'firebase/firestore';
 import axios from '../../../utils/axios';
 
 function Payment() {
@@ -36,13 +25,11 @@ function Payment() {
   const [clientSecret, setClientSecret] = useState('');
 
   useEffect(() => {
-    // generate the special stripe secret which allows us to charge a customer
     const getClientSecret = async () => {
       const total = getBasketTotal(basket) * 100;
       if (!basket.length) return;
       const response = await axios({
         method: 'post',
-        // Stripe expects the total in a currencies subunits
         url: `/payments/create?total=${total}`,
       });
       setClientSecret(response.data.clientSecret);
@@ -52,7 +39,6 @@ function Payment() {
   }, [basket]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    // do all the fancy stripe stuff...
     event.preventDefault();
     setProcessing(true);
 
@@ -103,8 +89,6 @@ function Payment() {
   };
 
   const handleChange = (event: StripeCardElementChangeEvent) => {
-    // Listen for changes in the CardElement
-    // and display any errors as the customer types their card details
     setDisabled(event.empty);
     setError(event.error ? event.error.message : '');
   };

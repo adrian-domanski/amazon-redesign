@@ -1,6 +1,7 @@
 import { AiFillStar } from 'react-icons/ai';
 import { useGlobalContext } from '../../../context/GlobalContext';
 import './styles.scss';
+import { useLocation } from 'react-router-dom';
 
 interface IProps {
   id: string;
@@ -19,14 +20,19 @@ function CheckoutProduct({
   rating,
   hideButton,
 }: IProps) {
-  const [_, dispatch] = useGlobalContext();
+  const [{ basket }, dispatch] = useGlobalContext();
+  const { pathname } = useLocation();
 
   const removeFromBasket = () => {
-    // remove the item from the basket
-    dispatch({
-      type: 'REMOVE_FROM_BASKET',
-      payload: id,
-    });
+    if (basket.length > 1 || pathname !== '/payment') {
+      // remove the item from the basket
+      dispatch({
+        type: 'REMOVE_FROM_BASKET',
+        payload: id,
+      });
+    } else {
+      return alert("You want to buy an empty basket? That's not possible!");
+    }
   };
 
   return (

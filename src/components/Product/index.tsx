@@ -1,7 +1,9 @@
-import React from 'react';
 import './styles.scss';
 import { AiFillStar } from 'react-icons/ai';
 import { useGlobalContext } from '../../context/GlobalContext';
+import toast, { Toaster } from 'react-hot-toast';
+import { FaCartPlus } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 interface IProps {
   id: string;
@@ -12,9 +14,15 @@ interface IProps {
 }
 
 function Product({ id, title, image, price, rating }: IProps) {
-  const [{ basket }, setGlobalContext] = useGlobalContext();
+  const [{ user }, setGlobalContext] = useGlobalContext();
+  const navigate = useNavigate();
+
+  const handleNavigateToAuth = () => {
+    return navigate('/login');
+  };
 
   const addToBasket = () => {
+    toast('Product added to basket!');
     setGlobalContext({
       type: 'ADD_TO_BASKET',
       payload: {
@@ -29,6 +37,10 @@ function Product({ id, title, image, price, rating }: IProps) {
 
   return (
     <div className='product'>
+      <Toaster
+        position='bottom-center'
+        toastOptions={{ icon: <FaCartPlus className='product__toastIcon' /> }}
+      />
       <div className='product__info'>
         <p>{title}</p>
         <p className='product__price'>
@@ -48,7 +60,11 @@ function Product({ id, title, image, price, rating }: IProps) {
 
       <img src={image} alt='' />
 
-      <button onClick={addToBasket}>Add to Basket</button>
+      {user ? (
+        <button onClick={addToBasket}>Add to Basket</button>
+      ) : (
+        <button onClick={handleNavigateToAuth}>Sign In</button>
+      )}
     </div>
   );
 }
