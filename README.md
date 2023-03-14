@@ -2,9 +2,9 @@
 ## Amazon - Spend More Smile Less 🤷
 ### Buy as many new IPads as you want (Test card included below) 💳
 
-## About
+## ℹ️ About 
 
-ℹ️ This is my small version of Amazon v.2.0 made with some Stripe magic for payments, and Firebase (cloud functions, storage and authentication).
+This is my small version of Amazon v.2.0 made with some Stripe magic for payments, and Firebase (cloud functions, storage and authentication).
 
 I've implemented:
 - Login page - you can use example credentials below if you don't want to register
